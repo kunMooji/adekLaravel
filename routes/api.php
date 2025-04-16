@@ -10,6 +10,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\FoodbcController;
 use App\Http\Controllers\OlahragabcController;
 use App\Http\Controllers\ArtikelController;
+use App\Http\Controllers\GetPenggunaData;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -23,3 +24,4 @@ Route::get('/bot-sheet', [BotSheetController::class, 'getMenuByName']);
 Route::get('/foodbc', [FoodbcController::class, 'getMenuByCategory']);
 Route::get('/olahragabc', [OlahragabcController::class, 'getOlahragaByJenis']);
 Route::get('/artikel', [ArtikelController::class, 'getArtikel']);
+Route::post('/get-pengguna', [GetPenggunaData::class, 'getPengguna']);
