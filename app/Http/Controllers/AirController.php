@@ -9,7 +9,6 @@ class AirController extends Controller
 {
     public function update(Request $request)
     {
-
         $validatedData = $request->validate([
             'id_user' => 'required|string',
             'tanggal' => 'required|date',
@@ -39,42 +38,33 @@ class AirController extends Controller
     }
 
     public function getWaterConsumption(Request $request)
-{
-    \Log::info('getWaterConsumption request received', [
-        'id_user' => $request->input('id_user'),
-        'tanggal' => $request->input('tanggal')
-    ]);
-
-    $validated = $request->validate([
-        'id_user' => 'required|string',
-        'tanggal' => 'required|date',
-    ]);
-
-    $data = DetailKalori::where('id_user', $validated['id_user'])
-        ->where('tanggal', $validated['tanggal'])
-        ->first();
-
-    \Log::info('Query result', ['found' => $data ? true : false]);
-
-    if ($data) {
-        \Log::info('Returning existing data', ['total_minum' => $data->total_minum]);
-        return response()->json([
-            'success' => true,
-            'total_minum' => $data->total_minum,
+    {
+        $validated = $request->validate([
+            'id_user' => 'required|string',
+            'tanggal' => 'required|date',
         ]);
-    } else {
-        \Log::info('Creating new record with total_minum = 0');
-        // Buat data baru untuk hari ini dengan total_minum = 0
-        $newData = new DetailKalori();
-        $newData->id_user = $validated['id_user'];
-        $newData->tanggal = $validated['tanggal'];
-        $newData->total_minum = 0;
-        $newData->save();
 
-        return response()->json([
-            'success' => true,
-            'total_minum' => 0,
-        ]);
+        $data = DetailKalori::where('id_user', $validated['id_user'])
+            ->where('tanggal', $validated['tanggal'])
+            ->first();
+
+        if ($data) {
+            return response()->json([
+                'success' => true,
+                'total_minum' => $data->total_minum,
+            ]);
+        } else {
+            // Buat data baru untuk hari ini dengan total_minum = 0
+            $newData = new DetailKalori();
+            $newData->id_user = $validated['id_user'];
+            $newData->tanggal = $validated['tanggal'];
+            $newData->total_minum = 0;
+            $newData->save();
+
+            return response()->json([
+                'success' => true,
+                'total_minum' => 0,
+            ]);
+        }
     }
-}
 }
