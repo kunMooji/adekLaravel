@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\DetailKalori; // Pastikan model ini sudah ada
+use App\Models\DetailKalori;
 
 class AirController extends Controller
 {

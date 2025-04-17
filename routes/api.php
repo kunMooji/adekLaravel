@@ -12,6 +12,7 @@ use App\Http\Controllers\OlahragabcController;
 use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\AirController;
 use App\Http\Controllers\KaloriController;
+use App\Http\Controllers\GetPenggunaData;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -28,3 +29,4 @@ Route::get('/artikel', [ArtikelController::class, 'getArtikel']);
 Route::post('/update-water-consumption', [AirController::class, 'update']);
 Route::get('/get-water-consumption', [AirController::class, 'getWaterConsumption']);
 Route::get('/detail-kalori', [KaloriController::class, 'getDetailKalori']);
+Route::post('/get-pengguna', [GetPenggunaData::class, 'getPengguna']);
