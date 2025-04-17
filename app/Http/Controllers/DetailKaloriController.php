@@ -22,13 +22,10 @@ class DetailKaloriController extends Controller
         ]);
 
         try {
-            // Simpan data ke tabel
             $detailKalori = DetailKalori::create($request->all());
 
-            // Log informasi
             Log::info('Data saved successfully', $detailKalori->toArray());
 
-            // Response sukses
             return response()->json([
                 'success' => true,
                 'message' => 'Data berhasil disimpan',

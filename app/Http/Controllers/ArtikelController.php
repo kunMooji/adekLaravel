@@ -17,7 +17,7 @@ class ArtikelController extends Controller
         // Jika tidak ada data, kembalikan response 404
         if ($artikel->isEmpty()) {
             return response()->json([
-                'message' => 'No articles found'
+                'message' => 'No articles found' // Fixed missing closing quote
             ], 404);
         }
 

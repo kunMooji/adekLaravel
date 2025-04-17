@@ -14,6 +14,7 @@ use App\Http\Controllers\AirController;
 use App\Http\Controllers\KaloriController;
 use App\Http\Controllers\GetPenggunaData;
 
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
