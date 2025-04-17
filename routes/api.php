@@ -31,3 +31,4 @@ Route::post('/update-water-consumption', [AirController::class, 'update']);
 Route::get('/get-water-consumption', [AirController::class, 'getWaterConsumption']);
 Route::get('/detail-kalori', [KaloriController::class, 'getDetailKalori']);
 Route::post('/get-pengguna', [GetPenggunaData::class, 'getPengguna']);
+Route::post('/update-profile-picture', [UserController::class, 'updateProfilePicture']);
