@@ -14,6 +14,7 @@ use App\Http\Controllers\AirController;
 use App\Http\Controllers\KaloriController;
 use App\Http\Controllers\GetPenggunaData;
 use App\Http\Controllers\DailyIntakeController;
+use App\Http\Controllers\RiwayatMakananController;
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -34,3 +35,4 @@ Route::get('/detail-kalori', [KaloriController::class, 'getDetailKalori']);
 Route::post('/get-pengguna', [GetPenggunaData::class, 'getPengguna']);
 Route::post('/update-profile-picture', [UserController::class, 'updateProfilePicture']);
 Route::post('/user/reset-daily-intake', [DailyIntakeController::class, 'resetDailyIntake']);
+Route::get('/riwayat-makanan', [RiwayatMakananController::class, 'getTerakhirDimakan']);
