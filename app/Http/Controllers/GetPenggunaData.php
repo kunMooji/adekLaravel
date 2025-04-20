@@ -29,6 +29,11 @@ class GetPenggunaData extends Controller
                 ->first();
 
             if ($pengguna) {
+                // Tambahkan base URL ke gambar
+                if ($pengguna->gambar) {
+                    $pengguna->gambar = asset($pengguna->gambar); // <--- tambahkan ini
+                }
+
                 $response = [
                     'success' => true,
                     'user_data' => $pengguna

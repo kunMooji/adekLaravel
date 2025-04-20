@@ -33,7 +33,7 @@ class LoginController extends Controller
             if (Hash::check($password, $user->password)) {
                 return response()->json([
                     'success' => true,
-                    'message' => 'Login successful',
+                    'message' => 'Login Berhasil',
                     'user' => [
                         'id_user' => $user->id_user,
                         'nama_lengkap' => $user->nama_lengkap,
@@ -43,13 +43,13 @@ class LoginController extends Controller
             } else {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Incorrect email or password'
+                    'message' => 'Kesalahan di Email atau Password'
                 ], 401);
             }
         } else {
             return response()->json([
                 'success' => false,
-                'message' => 'Incorrect email or password'
+                'message' => 'Kesalahan di Email atau Password'
             ], 401);
         }
     }

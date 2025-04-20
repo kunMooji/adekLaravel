@@ -4,18 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use App\Models\User;
+use App\Models\Pengguna;
 
 class UserController extends Controller
 {
     public function getUserData(Request $request)
     {
         $request->validate([
-            'id_user' => 'required|exists:users,id_user'
+            'id_user' => 'required|exists:data_pengguna,id_user'
         ]);
 
         try {
-            $user = User::find($request->id_user);
+            $user = Pengguna::find($request->id_user);
             
             if (!$user) {
                 return response()->json([
@@ -28,6 +28,7 @@ class UserController extends Controller
                 'success' => true,
                 'user_data' => $user
             ]);
+            
 
         } catch (\Exception $e) {
             return response()->json([
@@ -40,12 +41,12 @@ class UserController extends Controller
     public function updateProfilePicture(Request $request)
     {
         $request->validate([
-            'id_user' => 'required|exists:users,id_user',
+            'id_user' => 'required|exists:data_pengguna,id_user',
             'profile_picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         try {
-            $user = User::find($request->id_user);
+            $user = Pengguna::find($request->id_user);
             
             if (!$user) {
                 return response()->json([
@@ -73,7 +74,9 @@ class UserController extends Controller
                 'success' => true,
                 'message' => 'Profile picture updated successfully',
                 'user_data' => $user
+                
             ]);
+            
             
         } catch (\Exception $e) {
             return response()->json([
@@ -81,5 +84,6 @@ class UserController extends Controller
                 'message' => 'Failed to update profile picture: ' . $e->getMessage()
             ], 500);
         }
+        
     }
 }

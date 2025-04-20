@@ -16,7 +16,7 @@ use App\Http\Controllers\GetPenggunaData;
 use App\Http\Controllers\DailyIntakeController;
 use App\Http\Controllers\RiwayatMakananController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\ChatHistoryController; // Added this missing import
+use App\Http\Controllers\ChatHistoryController; 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
