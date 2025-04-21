@@ -10,7 +10,6 @@ class LoginController extends Controller
 {
     public function login(Request $request)
     {
-        // Set header untuk akses API
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Methods: POST");
         header("Access-Control-Allow-Headers: Content-Type");

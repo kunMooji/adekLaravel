@@ -16,6 +16,7 @@ use App\Http\Controllers\GetPenggunaData;
 use App\Http\Controllers\DailyIntakeController;
 use App\Http\Controllers\RiwayatMakananController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UpdateProfileController;
 use App\Http\Controllers\ChatHistoryController; 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -37,6 +38,7 @@ Route::post('/get-pengguna', [GetPenggunaData::class, 'getPengguna']);
 Route::post('/update-profile-picture', [UserController::class, 'updateProfilePicture']);
 Route::post('/user/reset-daily-intake', [DailyIntakeController::class, 'resetDailyIntake']);
 Route::get('/riwayat-makanan', [RiwayatMakananController::class, 'getTerakhirDimakan']);
+Route::post('/update-profile', [UpdateProfileController::class, 'updateProfile']);
 Route::prefix('chat-history')->group(function () {
     Route::get('/{userId}', [ChatHistoryController::class, 'getByUser']);
     Route::post('/', [ChatHistoryController::class, 'store']);
