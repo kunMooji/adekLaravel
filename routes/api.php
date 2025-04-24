@@ -17,9 +17,10 @@ use App\Http\Controllers\DailyIntakeController;
 use App\Http\Controllers\RiwayatMakananController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UpdateProfileController;
-use App\Http\Controllers\ChatHistoryController; 
+use App\Http\Controllers\ChatHistoryController;
 use App\Http\Controllers\LikeMenuController;
 use App\Http\Controllers\ReviewMenuController;
+use App\Http\Controllers\PasswordResetController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -45,13 +46,16 @@ Route::get('review-menu', [ReviewMenuController::class, 'getMenuReviews']);
 Route::get('review-menu/user', [ReviewMenuController::class, 'getUserReview']);
 Route::post('review-menu', [ReviewMenuController::class, 'addReview']);
 Route::put('review-menu', [ReviewMenuController::class, 'updateReview']);
+Route::post('/lupa-password', [PasswordResetController::class, 'forgotPassword']);
+Route::post('/ganti-password', [PasswordResetController::class, 'resetPassword']);
+
 Route::prefix('chat-history')->group(function () {
     Route::get('/{userId}', [ChatHistoryController::class, 'getByUser']);
     Route::post('/', [ChatHistoryController::class, 'store']);
     Route::delete('/{userId}', [ChatHistoryController::class, 'deleteByUser']);
 });
 Route::prefix('like-menu')->group(function () {
-    Route::post('/get', [LikeMenuController::class, 'getUserLikes']);     // ambil like user
-    Route::post('/add', [LikeMenuController::class, 'addLike']);          // tambah like
-    Route::post('/remove', [LikeMenuController::class, 'removeLike']); 
+    Route::post('/get', [LikeMenuController::class, 'getUserLikes']);
+    Route::post('/add', [LikeMenuController::class, 'addLike']);
+    Route::post('/remove', [LikeMenuController::class, 'removeLike']);
 });

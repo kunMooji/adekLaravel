@@ -27,8 +27,6 @@ class DailyIntakeController extends Controller
         try {
             DB::beginTransaction();
 
-            // 1. Get all intake data for the user
-            // Juga mengambil nama menu dari tabel menu (asumsi ada relasi)
             $details = DB::table('detail_kalori')
                 ->join('menu', 'detail_kalori.id_menu', '=', 'menu.id_menu')
                 ->where('detail_kalori.id_user', $id_user)

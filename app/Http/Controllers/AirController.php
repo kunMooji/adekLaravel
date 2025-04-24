@@ -8,63 +8,41 @@ use App\Models\DetailKalori;
 class AirController extends Controller
 {
     public function update(Request $request)
-    {
-        $validatedData = $request->validate([
-            'id_user' => 'required|string',
-            'tanggal' => 'required|date',
-            'total_minum' => 'required|numeric',
+{
+    $validatedData = $request->validate([
+        'id_user' => 'required|string',
+        'tanggal' => 'required|date',
+        'total_minum' => 'required|numeric',
+    ]);
+
+
+    $detailKalori = DetailKalori::where('id_user', $validatedData['id_user'])
+        ->where('tanggal', $validatedData['tanggal'])
+        ->first();
+
+    if ($detailKalori) {
+
+        $detailKalori->total_minum += $validatedData['total_minum'];
+        $detailKalori->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Jumlah minum berhasil ditambahkan',
+            'total_minum' => $detailKalori->total_minum,
         ]);
+    } else {
 
-        // Mencari data detail_kalori berdasarkan id_user dan tanggal
-        $detailKalori = DetailKalori::where('id_user', $validatedData['id_user'])
-            ->where('tanggal', $validatedData['tanggal'])
-            ->first();
+        $newData = new DetailKalori();
+        $newData->id_user = $validatedData['id_user'];
+        $newData->tanggal = $validatedData['tanggal'];
+        $newData->total_minum = $validatedData['total_minum'];
+        $newData->save();
 
-        if ($detailKalori) {
-            // Memperbarui total_minum
-            $detailKalori->total_minum = $validatedData['total_minum'];
-            $detailKalori->save(); // Menyimpan perubahan ke database
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Data Minuman Berhasil Diperbarui',
-            ]);
-        } else {
-            return response()->json([
-                'success' => false,
-                'message' => 'Data tidak ditemukan',
-            ], 404);
-        }
-    }
-
-    public function getWaterConsumption(Request $request)
-    {
-        $validated = $request->validate([
-            'id_user' => 'required|string',
-            'tanggal' => 'required|date',
+        return response()->json([
+            'success' => true,
+            'message' => 'Data baru dibuat dan total minum ditambahkan',
+            'total_minum' => $newData->total_minum,
         ]);
-
-        $data = DetailKalori::where('id_user', $validated['id_user'])
-            ->where('tanggal', $validated['tanggal'])
-            ->first();
-
-        if ($data) {
-            return response()->json([
-                'success' => true,
-                'total_minum' => $data->total_minum,
-            ]);
-        } else {
-            // Buat data baru untuk hari ini dengan total_minum = 0
-            $newData = new DetailKalori();
-            $newData->id_user = $validated['id_user'];
-            $newData->tanggal = $validated['tanggal'];
-            $newData->total_minum = 0;
-            $newData->save();
-
-            return response()->json([
-                'success' => true,
-                'total_minum' => 0,
-            ]);
-        }
     }
+}
 }
