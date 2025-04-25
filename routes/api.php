@@ -21,6 +21,8 @@ use App\Http\Controllers\ChatHistoryController;
 use App\Http\Controllers\LikeMenuController;
 use App\Http\Controllers\ReviewMenuController;
 use App\Http\Controllers\PasswordResetController;
+use App\Http\Controllers\LikeOlahragaController;
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -58,4 +60,9 @@ Route::prefix('like-menu')->group(function () {
     Route::post('/get', [LikeMenuController::class, 'getUserLikes']);
     Route::post('/add', [LikeMenuController::class, 'addLike']);
     Route::post('/remove', [LikeMenuController::class, 'removeLike']);
+});
+Route::prefix('like-olahraga')->group(function () {
+    Route::post('/get', [LikeOlahragaController::class, 'getUserLikes']);
+    Route::post('/add', [LikeOlahragaController::class, 'addLike']);
+    Route::post('/remove', [LikeOlahragaController::class, 'removeLike']);
 });
