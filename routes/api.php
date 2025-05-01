@@ -18,6 +18,7 @@ use App\Http\Controllers\RiwayatMakananController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UpdateProfileController;
 use App\Http\Controllers\ChatHistoryController;
+use App\Http\Controllers\GetInfoCalories;
 use App\Http\Controllers\LikeArtikelController;
 use App\Http\Controllers\LikeMenuController;
 use App\Http\Controllers\ReviewMenuController;
@@ -25,6 +26,8 @@ use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\LikeOlahragaController;
 use App\Http\Controllers\ReviewArtikelController;
 use App\Http\Controllers\ReviewOlahragaController;
+use App\Http\Controllers\UserActivityController;
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -60,6 +63,8 @@ Route::post('review-olahraga', [ReviewOlahragaController::class, 'addReview']);
 Route::put('review-olahraga', [ReviewOlahragaController::class, 'updateReview']);
 Route::post('/lupa-password', [PasswordResetController::class, 'forgotPassword']);
 Route::post('/ganti-password', [PasswordResetController::class, 'resetPassword']);
+Route::post('/user/update-activity', [UserActivityController::class, 'updateActivity']);
+Route::get('/info-kalori', [GetInfoCalories::class, 'getKalori']);
 
 Route::prefix('chat-history')->group(function () {
     Route::get('/{userId}', [ChatHistoryController::class, 'getByUser']);

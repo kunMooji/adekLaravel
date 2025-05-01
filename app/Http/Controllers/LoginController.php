@@ -36,7 +36,8 @@ class LoginController extends Controller
                     'user' => [
                         'id_user' => $user->id_user,
                         'nama_lengkap' => $user->nama_lengkap,
-                        'email' => $user->email
+                        'email' => $user->email,
+                        'aktifitas' => $user->aktifitas
                     ]
                 ], 200);
             } else {

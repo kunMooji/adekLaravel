@@ -25,13 +25,15 @@ class Pengguna extends Model
         'tanggal_lahir',
         'tipe_diet',
         'gender',
-        'gambar'
+        'gambar',
+        'aktifitas'
     ];
 
     protected $casts = [
         'tanggal_lahir' => 'date',
         'tipe_diet' => 'string',
         'gender' => 'string',
+        'aktifitas' => 'string',
     ];
     protected $attributes = [
         'gambar' => null, 
