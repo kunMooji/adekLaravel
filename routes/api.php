@@ -27,6 +27,7 @@ use App\Http\Controllers\LikeOlahragaController;
 use App\Http\Controllers\ReviewArtikelController;
 use App\Http\Controllers\ReviewOlahragaController;
 use App\Http\Controllers\UserActivityController;
+use App\Http\Controllers\UserWorkoutController;
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -66,6 +67,12 @@ Route::post('/ganti-password', [PasswordResetController::class, 'resetPassword']
 Route::post('/user/update-activity', [UserActivityController::class, 'updateActivity']);
 Route::get('/info-kalori', [GetInfoCalories::class, 'getKalori']);
 
+Route::prefix('user-workouts')->group(function () {
+    Route::post('/store', [UserWorkoutController::class, 'store']);
+    Route::get('/{userId}', [UserWorkoutController::class, 'getUserWorkouts']);
+    Route::get('/stats/{userId}', [UserWorkoutController::class, 'getUserStats']);
+    Route::get('/duration/{olahragaId}', [UserWorkoutController::class, 'getOlahragaDuration']);
+});
 Route::prefix('chat-history')->group(function () {
     Route::get('/{userId}', [ChatHistoryController::class, 'getByUser']);
     Route::post('/', [ChatHistoryController::class, 'store']);
