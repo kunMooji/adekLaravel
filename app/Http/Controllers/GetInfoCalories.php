@@ -19,24 +19,25 @@ class GetInfoCalories extends Controller
         }
 
         try {
-            $data = DB::table('detail_kalori as dk')
-                ->join('data_pengguna as dp', 'dk.id_user', '=', 'dp.id_user')
-                ->selectRaw('
-                    COALESCE(SUM(dk.total_minum), 0) as total_minum,
-                    COALESCE(SUM(dk.total_protein), 0) as total_protein,
-                    COALESCE(SUM(dk.total_karbohidrat), 0) as total_karbohidrat,
-                    COALESCE(SUM(dk.total_lemak), 0) as total_lemak,
-                    COALESCE(SUM(dk.total_gula), 0) as total_gula,
-                    dp.tipe_diet,
-                    dp.berat_badan,
-                    dp.tinggi_badan,
-                    dp.tanggal_lahir,
-                    dp.gender,
-                    dp.aktifitas
-                ')
-                ->where('dk.id_user', $id_user)
-                ->groupBy('dp.tipe_diet', 'dp.berat_badan', 'dp.tinggi_badan', 'dp.tanggal_lahir', 'dp.gender', 'dp.aktifitas')
-                ->first();
+            $data = DB::table('data_pengguna as dp')
+            ->leftJoin('detail_kalori as dk', 'dp.id_user', '=', 'dk.id_user')
+            ->selectRaw('
+                COALESCE(SUM(dk.total_minum), 0) as total_minum,
+                COALESCE(SUM(dk.total_protein), 0) as total_protein,
+                COALESCE(SUM(dk.total_karbohidrat), 0) as total_karbohidrat,
+                COALESCE(SUM(dk.total_lemak), 0) as total_lemak,
+                COALESCE(SUM(dk.total_gula), 0) as total_gula,
+                dp.tipe_diet,
+                dp.berat_badan,
+                dp.tinggi_badan,
+                dp.tanggal_lahir,
+                dp.gender,
+                dp.aktifitas
+            ')
+            ->where('dp.id_user', $id_user)
+            ->groupBy('dp.tipe_diet', 'dp.berat_badan', 'dp.tinggi_badan', 'dp.tanggal_lahir', 'dp.gender', 'dp.aktifitas')
+            ->first();
+        
 
             if ($data) {
                 return response()->json([
