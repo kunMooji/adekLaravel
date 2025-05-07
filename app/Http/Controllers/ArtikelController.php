@@ -24,10 +24,14 @@ class ArtikelController extends Controller
         // Ubah path gambar agar bisa diakses melalui URL
         foreach ($artikel as $item) {
             $item->gambar = url('storage/image/' . $item->gambar);
+
+            $item->gambar = str_replace('127.0.0.1', '10.0.2.2', $item->gambar);
         }
+
 
         // Kembalikan response JSON
         return response()->json([
+            'status' => 'success',
             'data' => $artikel
         ], 200);
     }
