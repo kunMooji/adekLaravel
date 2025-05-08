@@ -26,6 +26,7 @@ use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\LikeOlahragaController;
 use App\Http\Controllers\ReviewArtikelController;
 use App\Http\Controllers\ReviewOlahragaController;
+use App\Http\Controllers\MenuUserController;
 use App\Http\Controllers\UserActivityController;
 use App\Http\Controllers\UserWorkoutController;
 
@@ -66,6 +67,7 @@ Route::post('/lupa-password', [PasswordResetController::class, 'forgotPassword']
 Route::post('/ganti-password', [PasswordResetController::class, 'resetPassword']);
 Route::post('/user/update-activity', [UserActivityController::class, 'updateActivity']);
 Route::get('/info-kalori', [GetInfoCalories::class, 'getKalori']);
+Route::post('/menu-user', [MenuUserController::class, 'store']);
 
 Route::prefix('user-workouts')->group(function () {
     Route::post('/store', [UserWorkoutController::class, 'store']);

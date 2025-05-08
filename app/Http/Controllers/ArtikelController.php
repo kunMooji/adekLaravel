@@ -10,29 +10,38 @@ class ArtikelController extends Controller
     public function getArtikel()
     {
         // Ambil semua data dari tabel artikel
-        $artikel = DB::table('artikel')
+        $artikels = DB::table('artikel')
             ->select('id_buku', 'judul', 'kategori', 'isi_buku', 'gambar')
+            ->orderBy('judul', 'desc')
             ->get();
 
         // Jika tidak ada data, kembalikan response 404
-        if ($artikel->isEmpty()) {
+        if ($artikels->isEmpty()) {
             return response()->json([
-                'message' => 'No articles found' // Fixed missing closing quote
+                'message' => 'No articles found'
             ], 404);
         }
 
-        // Ubah path gambar agar bisa diakses melalui URL
-        foreach ($artikel as $item) {
-            $item->gambar = url('storage/image/' . $item->gambar);
+        // Base URL gambar (ubah sesuai kebutuhan)
+        $base_url = url('storage/image');
 
-            $item->gambar = str_replace('127.0.0.1', '10.0.2.2', $item->gambar);
-        }
-
+        // Transformasi data
+        $data = $artikels->map(function ($item) use ($base_url) {
+            return [
+                'id_buku'       => $item->id_buku,
+                'judulArtikel'  => $item->judul,
+                'kategori'      => $item->kategori,
+                'isi_buku'      => $item->isi_buku,
+                'gambar'        => !empty($item->gambar) 
+                    ? str_replace('127.0.0.1', '10.0.2.2', $base_url . '/' . trim($item->gambar)) 
+                    : null,
+            ];
+        });
 
         // Kembalikan response JSON
         return response()->json([
             'status' => 'success',
-            'data' => $artikel
+            'data' => $data
         ], 200);
     }
 }
