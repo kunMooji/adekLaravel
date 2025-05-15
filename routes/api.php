@@ -42,7 +42,7 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::get('/bot-sheet', [BotSheetController::class, 'getMenuByName']);
 Route::get('/foodbc', [FoodbcController::class, 'getMenuByCategory']);
 Route::get('/olahragabc', [OlahragabcController::class, 'getOlahragaByJenis']);
-Route::get('/artikel', [ArtikelController::class, 'getArtikel']);
+Route::get('/artikel', [ArtikelController::class, 'getAllArtikel']);
 Route::post('/update-water-consumption', [AirController::class, 'update']);
 Route::get('/get-water-consumption', [AirController::class, 'getWaterConsumption']);
 Route::get('/detail-kalori', [KaloriController::class, 'getDetailKalori']);
